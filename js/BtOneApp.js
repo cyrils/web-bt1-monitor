@@ -9,8 +9,8 @@ const CHARGING_STATE = {
 }
 
 const LOAD_STATE = {
-  0: 'Off',
-  1: 'On',
+  0: 'off',
+  1: 'on',
 }
 
 const FUNCTION = {
@@ -63,6 +63,7 @@ class BtOneApp extends BLEDevice {
       if (node) node.innerHTML = parsedData[key];
     }
     document.querySelector('#soc').style.width = `${parsedData['battery_percentage']}%`;
+    document.querySelector('#load_toggle').classList = `toggle ${parsedData['load_status']}`;
   }
 
   parseChargeControllerInfo(dataView) {
