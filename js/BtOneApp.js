@@ -31,6 +31,16 @@ class BtOneApp extends BLEDevice {
     if (this.timer) window.clearInterval(this.timer);
   }
 
+  async toggleLoad() {
+    if (this.parsedData && this.parsedData['load_status'] == 'off') {
+      const payload = new Int8Array([255, 6, 1, 10, 0, 1, 124, 42]);
+      this.write(payload);
+    } else {
+      const payload = new Int8Array([255, 6, 1, 10, 0, 0, 189, 234]);
+      this.write(payload);
+    }
+  }
+
   onConnect() {
     super.onConnect();
     document.querySelectorAll(".hide").forEach(node => {
@@ -48,9 +58,16 @@ class BtOneApp extends BLEDevice {
   }
 
   onData(dataView) {
-    const parsedData = this.parseChargeControllerInfo(dataView);
-    console.log(parsedData);
-    this.renderData(parsedData)
+    const operation = FUNCTION[dataView.getInt8(1)];
+    let parsedResponse = {};
+
+    if (operation == 'READ') {
+      this.parsedData = parsedResponse = this.parseChargeControllerInfo(dataView);
+    } else {
+      parsedResponse = this.parseSetLoadResponse(dataView);
+    }
+    console.log(parsedResponse);
+    this.renderData(parsedResponse)
   }
 
   onError(exception) {
@@ -93,6 +110,12 @@ class BtOneApp extends BLEDevice {
     return data
   }
 
+  parseSetLoadResponse(dataView) {
+    const data = {};
+    data['function'] = FUNCTION[dataView.getInt8(1)];
+    data['load_status'] = LOAD_STATE[dataView.getInt8(5)];
+    return data;
+  }
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -106,7 +129,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     await app.stop();
   }
 
+  let toggleLoad = async function() {
+    await app.toggleLoad();
+  }
+
   document.querySelector("#search").addEventListener("click", connect);
   document.querySelector("#disconnect").addEventListener("click", disconnect);
+  document.querySelector("#load_toggle").addEventListener("click", toggleLoad);
   window.addEventListener('beforeunload', disconnect)
 });
