@@ -54,7 +54,6 @@ class BLEDevice {
   }
 
   read(event) {
-    console.log(event.target.value);
     this.onData(event.target.value)
   }
 
