@@ -1,0 +1,128 @@
+body {
+    font-family: "Helvetica Neue";
+    background: #f3f3f4;
+    padding: 0;
+    margin: 0;
+  }
+  .title {
+    font-size: 16pt;
+    font-weight: 600;
+    background: #0091D5;
+    padding: 14px 20px;
+    margin: 0 0 10px 0;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+  .content {
+    margin: 70px 10px 10px;
+  }
+  .grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 49% 49%;
+    grid-row: auto auto;
+  }
+  .grid-item {
+    padding: 10px 16px;
+    display: inline-grid;
+    background: #FFF;
+    border-radius: 6px;
+    box-shadow: 1px 1px 3px #EEE;
+  }
+
+  .grid-item.span {
+    grid-column: 1 / span 2;
+  }
+  .grid-item.image {
+    padding: 0 10px;
+    min-height: 120px;
+  }
+  .section {
+    border-bottom: 1px solid #DADADA;
+    box-shadow: 0px 1px #FFF;
+    padding: 6px 4px;
+    margin: 10px 0;
+  }
+  .section .icon {
+    width: 20px;
+    margin-right: 6px;
+    margin-bottom: -2px;
+  }
+  .label {
+    font-size: 12pt;
+    color: #63636A;
+  }
+  .section .label {
+    font-weight: 500;
+  }
+  .value {
+    font-size: 22pt;
+    padding: 4px 0;
+    color: #20283E;
+  }
+  .value.primary {
+    font-size: 32pt;
+    color: #484848;
+  }
+  .unit {
+    font-size: 16pt;
+    color: #7E909A;
+    margin-left: 2px;
+  }
+  .value.primary .unit {
+    font-size: 20pt;
+  }
+  .sub-text {
+    font-size: 10pt;
+    margin-top: 2px;
+    color: #63636A;
+  }
+  .battery {
+    width: 40px;
+    height: 16px;
+    padding: 1px;
+    border: 2px solid #6AB187;
+    display: inline-block;
+    margin-left: 4px;
+    position: relative;
+    border-radius: 2px;
+  }
+  .battery .charge {
+    height: 16px;
+    background: #6AB187;
+  }
+  .battery .terminal {
+    width: 4px;
+    height: 8px;
+    background: #6AB187;
+    position: absolute;
+    right: -5px;
+    top: 4px;
+  }
+  .chart {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  .timestamp {
+    font-size: 11pt;
+    margin-top: 10px;
+  }
+  .refresh {
+    color: #1C4E80;
+    text-decoration: none;
+  }
+
+  button {
+    font-size: 14pt;
+    background: #fff;
+    padding: 6px 8px;
+    margin: 4px;
+    color: #0091D5;
+    border: 1px solid #0091D5;
+    border-radius: 5px;
+  }
+  .hidden {
+    display: none;
+  }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content=#0091D5 />
+    <link rel="icon" type="image/png" sizes="192x192" href="images/solar192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="images/solar192.png">
+    <link rel="apple-touch-startup-image" href="images/solar512.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#014473">
+    <link rel="stylesheet" href="style.csS">
+  </head>
+<div class="title">BT-1 Solar Monitor</div>
+<div class="content">
+
+  <div class="section hide hidden">
+    <img src="images/solar-panel.png" class="icon hide hidden"/>
+    <span class="label hide hidden">Solar Panel</span>
+  </div>
+  <div class="grid-container hide hidden">
+    <div class="grid-item">
+      <div class="label">Power</div>
+      <div class="value primary"><span id="pv_power"></span><span class="unit">W</span></div>
+    </div>
+    <div class="grid-item">
+      <div class="label">Generation today</div>
+      <div class="value"><span id="power_generation_today"></span><span class="unit">kWh</span></div>
+    </div>
+    <div class="grid-item">
+      <div class="label">Voltage</div>
+      <div class="value"><span id="pv_voltage"></span><span class="unit">V</span></div>
+    </div>
+    <div class="grid-item">
+      <div class="label">Current</div>
+      <div class="value"><span id="pv_current"></span><span class="unit">A</span></div>
+    </div>
+  </div>
+
+  <div class="section hide hidden">
+    <img src="images/battery.png" class="icon"/>
+    <span class="label">Battery</span>
+  </div>
+
+  <div class="grid-container hide hidden">
+    <div class="grid-item">
+      <div class="label"> Voltage</div>
+      <div class="value"><span id="battery_voltage"></span><span class="unit">V</span></div>
+    </div>
+
+    <div class="grid-item hide hidden">
+      <div class="label">Capacity</div>
+      <div class="value"><span id="battery_percentage"></span><span class="unit">%</span>
+        <div class="battery">
+          <div class="charge" id="soc" style="width: 30%"></div>
+          <div class="terminal"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section hide hidden">
+    <img src="images/battery.png" class="icon"/>
+    <span class="label">Load</span>
+  </div>
+  <div class="grid-container hide hidden">
+    <div class="grid-item">
+      <div class="label"> Status</div>
+      <div class="value"><span id="load_status"></span></div>
+    </div>
+    <div class="grid-item">
+      <div class="label"> Power</div>
+      <div class="value"><span id="load_power"></span><span class="unit">W</span></div>
+    </div>
+  </div>
+
+  <div class="section"> </div>
+  <div class="grid-container">
+    <button id="search" class="search">Search device</button>
+    <button id="disconnect" class="hide hidden">Disconnect</button>
+  </div>
+  
+</div>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./js/service-worker.js')
+      .then(function (registration) {
+        console.log('Service Worker registration successful with scope: ', registration.scope)
+      })
+      .catch(function (err) {
+        console.log('Service Worker registration failed: ', err)
+      })
+  }
+</script>
+<script src="./js/BLE.js"></script>
+<script src="./js/BtOneApp.js"></script>
+</html>
