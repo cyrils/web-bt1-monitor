@@ -102,11 +102,11 @@ class BtOneApp extends BLEDevice {
     data['max_discharging_power_today'] = dataView.getInt16(35);
     data['charging_amp_hours_today'] = dataView.getInt16(37);
     data['discharging_amp_hours_today'] = dataView.getInt16(39);
-    data['power_generation_today'] = (dataView.getInt16(41) * 0.001).toFixed(3);
-    data['power_generation_total'] = (dataView.getInt32(59) * 0.001).toFixed(3);
+    data['power_generation_today'] = parseFloat((dataView.getInt16(41) * 0.001).toFixed(3));
+    data['power_generation_total'] = parseFloat((dataView.getInt16(41) * 0.001).toFixed(3));
     const chargingStatusCode = dataView.getInt8(68);
     data['charging_status'] = CHARGING_STATE[chargingStatusCode]
-    
+
     return data
   }
 
@@ -121,20 +121,8 @@ class BtOneApp extends BLEDevice {
 window.addEventListener('DOMContentLoaded', async () => {
   let app = new BtOneApp();
 
-  let connect = async function() {
-    await app.start();
-  }
-
-  let disconnect = async function() {
-    await app.stop();
-  }
-
-  let toggleLoad = async function() {
-    await app.toggleLoad();
-  }
-
-  document.querySelector("#search").addEventListener("click", connect);
-  document.querySelector("#disconnect").addEventListener("click", disconnect);
-  document.querySelector("#load_toggle").addEventListener("click", toggleLoad);
-  window.addEventListener('beforeunload', disconnect)
+  document.querySelector("#search").addEventListener("click", async () => await app.start());
+  document.querySelector("#disconnect").addEventListener("click", async () => await app.stop());
+  document.querySelector("#load_toggle").addEventListener("click", async () => await app.toggleLoad());
+  window.addEventListener('beforeunload', async () => await app.stop())
 });

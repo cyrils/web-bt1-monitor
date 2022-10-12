@@ -10,7 +10,7 @@
     <link rel="apple-touch-startup-image" href="images/solar512.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="msapplication-TileColor" content="#014473">
-    <link rel="stylesheet" href="style.csS">
+    <link rel="stylesheet" href="style.css">
   </head>
 <div class="title">BT-1 Solar Monitor</div>
 <div class="content">
@@ -50,7 +50,7 @@
     </div>
 
     <div class="grid-item hide hidden">
-      <div class="label">Capacity</div>
+      <div class="label">Charge</div>
       <div class="value"><span id="battery_percentage"></span><span class="unit">%</span>
         <div class="battery">
           <div class="charge" id="soc" style="width: 30%"></div>
@@ -67,7 +67,7 @@
   <div class="grid-container hide hidden">
     <div class="grid-item">
       <div class="label"> Status</div>
-      <div class="unit"><div id="load_toggle" class="toggle off"><div class="tab"></div></div></div>
+      <div id="load_toggle" class="toggle off"><div class="tab"></div></div>
     </div>
     <div class="grid-item">
       <div class="label"> Power</div>

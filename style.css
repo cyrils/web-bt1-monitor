@@ -149,7 +149,7 @@ button {
 }
 
 .toggle {
-  height: 18px;
+  height: 20px;
   width: 40px;
   border: 2px solid #6AB187;
   border-radius: 12px;
@@ -162,13 +162,13 @@ button {
 }
 
 .toggle .tab {
-  height: 16px;
+  height: 18px;
   width: 20px;
   margin: 1px;
   position: absolute;
   right: 0;
   background: #6AB187;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 .toggle.off .tab  {
