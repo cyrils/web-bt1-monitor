@@ -1,14 +1,18 @@
 class BLEDevice {
-  constructor() {
-    this.namePrefix = 'BT-TH';
-    this.writeServiceUuid = '0000ffd0-0000-1000-8000-00805f9b34fb';
-    this.notifyServiceUuid = '0000fff0-0000-1000-8000-00805f9b34fb';
-    this.writeCharUuid = '0000ffd1-0000-1000-8000-00805f9b34fb';
-    this.notifyCharUuid = '0000fff1-0000-1000-8000-00805f9b34fb';
+  constructor(namePrefix, writeServiceUuid, notifyServiceUuid, writeCharUuid, notifyCharUuid) {
+    this.namePrefix = namePrefix;
+    this.writeServiceUuid = writeServiceUuid;
+    this.notifyServiceUuid = notifyServiceUuid;
+    this.writeCharUuid = writeCharUuid;
+    this.notifyCharUuid = notifyCharUuid;
     this.deviceName = '';
     this.server = null;
     this.writeChar = null;
     this.notifyChar = null;
+
+    if (this.constructor == BLEDevice) {
+      throw new Error("Abstract classes can't be instantiated.");
+    }
   }
 
   async connect() {

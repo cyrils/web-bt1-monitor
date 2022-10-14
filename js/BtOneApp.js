@@ -18,7 +18,17 @@ const FUNCTION = {
   6: "WRITE"
 }
 
+const NAME_PREFIX = 'BT-TH';
+const WRITE_SERVICE_UUID = '0000ffd0-0000-1000-8000-00805f9b34fb';
+const NOTIFY_SERVICE_UUID = '0000fff0-0000-1000-8000-00805f9b34fb';
+const WRITE_CHAR_UUID = '0000ffd1-0000-1000-8000-00805f9b34fb';
+const NOTIFY_CHAR_UUID = '0000fff1-0000-1000-8000-00805f9b34fb';
+
 class BtOneApp extends BLEDevice {
+  constructor() {
+    super(NAME_PREFIX, WRITE_SERVICE_UUID, NOTIFY_SERVICE_UUID, WRITE_CHAR_UUID, NOTIFY_CHAR_UUID);
+  }
+
   async start() {
     await this.connect();
     const payload = new Int8Array([255, 3, 1, 0, 0, 34, 209, 241]);
@@ -39,6 +49,11 @@ class BtOneApp extends BLEDevice {
       const payload = new Int8Array([255, 6, 1, 10, 0, 0, 189, 234]);
       this.write(payload);
     }
+  }
+
+  async readHistory() {
+    // const payload = new Int8Array([255, 3, 240, 0, 0, 20, 99, 27]);
+    // this.write(payload);
   }
 
   onConnect() {
@@ -77,7 +92,7 @@ class BtOneApp extends BLEDevice {
   renderData(parsedData) {
     for(const key in parsedData) {
       const node = document.querySelector(`#${key}`);
-      if (node) node.innerHTML = parsedData[key];
+      if (node) node.textContent = parsedData[key];
     }
     document.querySelector('#soc').style.width = `${parsedData['battery_percentage']}%`;
     document.querySelector('#load_toggle').classList = `toggle ${parsedData['load_status']}`;
@@ -105,7 +120,7 @@ class BtOneApp extends BLEDevice {
     data['power_generation_today'] = parseFloat((dataView.getInt16(41) * 0.001).toFixed(3));
     data['power_generation_total'] = parseFloat((dataView.getInt16(41) * 0.001).toFixed(3));
     const chargingStatusCode = dataView.getInt8(68);
-    data['charging_status'] = CHARGING_STATE[chargingStatusCode]
+    data['charging_status'] = CHARGING_STATE[chargingStatusCode];
 
     return data
   }
