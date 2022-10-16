@@ -51,11 +51,6 @@ class BtOneApp extends BLEDevice {
     }
   }
 
-  async readHistory() {
-    // const payload = new Int8Array([255, 3, 240, 0, 0, 20, 99, 27]);
-    // this.write(payload);
-  }
-
   onConnect() {
     super.onConnect();
     document.querySelectorAll(".hide").forEach(node => {

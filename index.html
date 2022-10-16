@@ -2,14 +2,8 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content=#0091D5 />
-    <link rel="icon" type="image/png" sizes="192x192" href="images/solar192.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/solar192.png">
-    <link rel="apple-touch-startup-image" href="images/solar512.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="msapplication-TileColor" content="#014473">
     <link rel="stylesheet" href="style.css">
   </head>
 <div class="title">BT-1 Solar Monitor</div>
@@ -61,7 +55,7 @@
   </div>
 
   <div class="section hide hidden">
-    <img src="images/battery.png" class="icon"/>
+    <img src="images/lamp.png" class="icon"/>
     <span class="label">Load</span>
   </div>
   <div class="grid-container hide hidden">
@@ -82,17 +76,6 @@
   </div>
   
 </div>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./js/service-worker.js')
-      .then(function (registration) {
-        console.log('Service Worker registration successful with scope: ', registration.scope)
-      })
-      .catch(function (err) {
-        console.log('Service Worker registration failed: ', err)
-      })
-  }
-</script>
 <script src="./js/BLE.js"></script>
 <script src="./js/BtOneApp.js"></script>
 </html>
