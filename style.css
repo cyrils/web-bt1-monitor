@@ -38,6 +38,7 @@ body {
 
 .grid-item.span {
   grid-column: 1 / span 2;
+  grid-auto-flow: column;
 }
 
 .grid-item.image {

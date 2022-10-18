@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content=#0091D5 />
+    <link rel="stylesheet" href="style.css">
+  </head>
+<div class="title">BT-1 Solar Monitor</div>
+<div class="content">
+
+  <div class="section hide hidden">
+    <img src="images/battery.png" class="icon"/>
+    <span class="label">Send Command</span>
+  </div>
+  <div class="grid-container hide hidden">
+      <button id="command_get_status">Get status</button>
+      <button id="command_get_error">Get error</button>
+      <button id="command_connect">Connect</button>
+      <button id="command_disconnect">Disconnect</button>
+      <button id="command_restart">Restart</button>
+    <div class="grid-item span">
+      <textarea id="command"></textarea><button id="send">Send</button>
+    </div>
+  </div>
+
+  <div class="section hide hidden">
+    <span class="label">Response</span>
+  </div>
+  <div class="grid-container hide hidden">
+    <div class="grid-item span">
+      <div class="label">
+        <div id="response">Send a command</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section"> </div>
+  <div class="toolbar">
+    <button id="search" class="search">Search device</button>
+    <button id="disconnect" class="hide hidden">Disconnect</button>
+  </div>
+  
+</div>
+<script src="./js/BLE.js"></script>
+<script src="./js/PicoRelay.js"></script>
+</html>
