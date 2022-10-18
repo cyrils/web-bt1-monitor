@@ -6,7 +6,7 @@
     <meta name="theme-color" content=#0091D5 />
     <link rel="stylesheet" href="style.css">
   </head>
-<div class="title">BT-1 Solar Monitor</div>
+<div class="title">Pico Relay</div>
 <div class="content">
 
   <div class="section hide hidden">
@@ -14,13 +14,13 @@
     <span class="label">Send Command</span>
   </div>
   <div class="grid-container hide hidden">
-      <button id="command_get_status">Get status</button>
-      <button id="command_get_error">Get error</button>
-      <button id="command_connect">Connect</button>
-      <button id="command_disconnect">Disconnect</button>
-      <button id="command_restart">Restart</button>
+    <button id="command_get_status">Get status</button>
+    <button id="command_get_error">Get error</button>
+    <button id="command_connect">Connect</button>
+    <button id="command_disconnect">Disconnect</button>
+    <button id="command_restart">Restart</button>
     <div class="grid-item span">
-      <textarea id="command"></textarea><button id="send">Send</button>
+      <textarea id="command">get relay.voltage_lower_cutoff</textarea><button id="send">Send</button>
     </div>
   </div>
 
