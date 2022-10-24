@@ -68,6 +68,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.querySelector("#command_connect").addEventListener("click", async () => await app.writeCommand('set relay connect'));
   document.querySelector("#command_disconnect").addEventListener("click", async () => await app.writeCommand('set relay disconnect'));
   document.querySelector("#command_get_error").addEventListener("click", async () => await app.writeCommand('get error'));
+  document.querySelector("#command_restart").addEventListener("click", async () => await app.writeCommand('restart'));
+  document.querySelector("#command_update").addEventListener("click", async () => await app.writeCommand('update'));
   window.addEventListener('beforeunload', async () => await app.stop())
   
 });
