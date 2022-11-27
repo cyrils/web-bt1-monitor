@@ -3,6 +3,8 @@ Web application to read Renogy RS232 compatible BT-1 bluetooth adapter. Compatib
 
 <img src="https://user-images.githubusercontent.com/5549113/196418782-3f9d06b4-d75b-479d-99da-67616a208ed0.png" width="280px">
 
+Please note this is a **completely client side** application, so make sure your browser device is close to your bt1 adapter.
+
 ### Platform Compatibility
 |Browser|Native|Third party|
 -|-|-|
