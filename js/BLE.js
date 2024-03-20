@@ -9,6 +9,7 @@ class BLEDevice {
     this.server = null;
     this.writeChar = null;
     this.notifyChar = null;
+    this.isBluefy = navigator.userAgent.indexOf('Bluefy') > 0;
 
     if (this.constructor == BLEDevice) {
       throw new Error("Abstract classes can't be instantiated.");
@@ -17,9 +18,9 @@ class BLEDevice {
 
   async connect() {
     try {
-      if (typeof navigator.bluetooth.getDevices !== "undefined") {
+      if (!this.isBluefy && typeof navigator.bluetooth.getDevices !== "undefined") {
         const devices = await navigator.bluetooth.getDevices()
-        if (devices.length > 0) this.device = self.devices.find(device => device.name.startsWith(this.namePrefix));
+        if (devices.length > 0) this.device = self.devices.find(device => device.name && device.name.startsWith(this.namePrefix));
       }
 
       if (!this.device) {
