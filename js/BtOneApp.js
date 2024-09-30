@@ -113,7 +113,7 @@ class BtOneApp extends BLEDevice {
     data['charging_amp_hours_today'] = dataView.getInt16(37);
     data['discharging_amp_hours_today'] = dataView.getInt16(39);
     data['power_generation_today'] = parseFloat((dataView.getInt16(41) * 0.001).toFixed(3));
-    data['power_generation_total'] = parseFloat((dataView.getInt16(41) * 0.001).toFixed(3));
+    data['power_generation_total'] = parseFloat((dataView.getInt32(59) * 0.001).toFixed(3));
     const chargingStatusCode = dataView.getInt8(68);
     data['charging_status'] = CHARGING_STATE[chargingStatusCode];
 
