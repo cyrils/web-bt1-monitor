@@ -9,7 +9,8 @@ Web application to read Renogy RS232 compatible BT-1 bluetooth adapter. Compatib
 -|-|-|
 |Desktop Chrome|✅ |-|
 |iOS Webkit|❌|✅|
-|Android Chrome| ❓|❓|
+|Android Chrome|✅|-|
+|ChromeOS Chrome|✅|-|
 
 This web app is tested with Chrome Desktop and in iOS devices you can use [Bluefy](https://apps.apple.com/us/app/bluefy-web-ble-browser/id1492822055) or [WebBLE](https://apps.apple.com/us/app/webble/id1193531073).
 
