@@ -11,9 +11,10 @@ Web application to read Renogy RS232 compatible BT-1 bluetooth adapter. Compatib
 |iOS Webkit|❌|✅|
 |Android Chrome|✅|-|
 |ChromeOS Chrome|✅|-|
-|Linux Chromium|✅|-| (have to enable 'Experimental Web Platform features', 'Web Bluetooth', 'Web Bluetooth confirm pairing support' but disable 'Use the new permissions backend for Web Bluetooth')
+|Linux Chromium|✅|-| 
 
-This web app is tested with Chrome Desktop and in iOS devices you can use [Bluefy](https://apps.apple.com/us/app/bluefy-web-ble-browser/id1492822055) or [WebBLE](https://apps.apple.com/us/app/webble/id1193531073).
+
+This web app is tested with Chrome Desktop and in iOS devices you can use [Bluefy](https://apps.apple.com/us/app/bluefy-web-ble-browser/id1492822055) app. In Linux Chromium you have to enable 'Experimental Web Platform features', 'Web Bluetooth', 'Web Bluetooth confirm pairing support' but disable 'Use the new permissions backend for Web Bluetooth'
 
 ### Demo
 Visit the github page for demo https://cyrils.github.io/web-bt1-monitor/
