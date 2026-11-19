@@ -1,81 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <title>BT-1 Solar Monitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content=#0091D5 />
-    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0091D5">
+    <link rel="stylesheet" href="monitor.css">
   </head>
-<div class="title">BT-1 Solar Monitor</div>
-<div class="content">
-
-  <div class="section hide hidden">
-    <img src="images/solar-panel.png" class="icon hide hidden"/>
-    <span class="label hide hidden">Solar Panel</span>
-  </div>
-  <div class="grid-container hide hidden">
-    <div class="grid-item">
-      <div class="label">Power</div>
-      <div class="value primary"><span id="pv_power"></span><span class="unit">W</span></div>
-    </div>
-    <div class="grid-item">
-      <div class="label">Generation today</div>
-      <div class="value"><span id="power_generation_today"></span><span class="unit">kWh</span></div>
-    </div>
-    <div class="grid-item">
-      <div class="label">Voltage</div>
-      <div class="value"><span id="pv_voltage"></span><span class="unit">V</span></div>
-    </div>
-    <div class="grid-item">
-      <div class="label">Current</div>
-      <div class="value"><span id="pv_current"></span><span class="unit">A</span></div>
-    </div>
-  </div>
-
-  <div class="section hide hidden">
-    <img src="images/battery.png" class="icon"/>
-    <span class="label">Battery</span>
-  </div>
-
-  <div class="grid-container hide hidden">
-    <div class="grid-item">
-      <div class="label"> Voltage</div>
-      <div class="value"><span id="battery_voltage"></span><span class="unit">V</span></div>
-    </div>
-
-    <div class="grid-item hide hidden">
-      <div class="label">Charge</div>
-      <div class="value"><span id="battery_percentage"></span><span class="unit">%</span>
-        <div class="battery">
-          <div class="charge" id="soc" style="width: 30%"></div>
-          <div class="terminal"></div>
-        </div>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <span class="brand-icon"><img src="images/solar-panel.png" alt=""></span>
+      <div>
+        <h1>Solar Monitor</h1>
+        <p class="brand-context">
+          <span id="connection_dot" class="connection-dot" aria-hidden="true" hidden></span>
+          <span id="connection_label" role="status">Renogy BT-1</span>
+        </p>
       </div>
     </div>
+    <button id="disconnect" class="button button-outline session-action hide hidden">Disconnect</button>
+  </div>
+</header>
+
+<main class="monitor">
+  <section id="connection_actions" class="welcome" aria-labelledby="welcome-title">
+    <div class="welcome-copy">
+      <h2 id="welcome-title">Connect your solar controller</h2>
+      <p>View live solar, battery, and load readings from your Renogy controller over Bluetooth.</p>
+      <div class="welcome-actions">
+        <button id="search" class="button button-primary">Search device</button>
+        <button id="simulate" class="button button-outline">Start simulator</button>
+      </div>
+    </div>
+    <div class="welcome-art" aria-hidden="true">
+      <span class="art-node"><img src="images/solar-panel.png" alt=""></span>
+      <span class="art-line"></span>
+      <span class="art-node"><img src="images/battery.png" alt=""></span>
+      <span class="art-line"></span>
+      <span class="art-node"><img src="images/lamp.png" alt=""></span>
+    </div>
+  </section>
+
+  <p id="connection_status" class="connection-status" role="status"></p>
+  <div class="monitor-tabs hide hidden" role="tablist" aria-label="Rover readings">
+    <button id="live-tab" role="tab" aria-controls="live" aria-selected="true">Live</button>
+    <button id="energy-tab" role="tab" aria-controls="energy" aria-selected="false" tabindex="-1">Energy</button>
+    <button id="controller-tab" role="tab" aria-controls="controller" aria-selected="false" tabindex="-1">Controller</button>
   </div>
 
-  <div class="section hide hidden">
-    <img src="images/lamp.png" class="icon"/>
-    <span class="label">Load</span>
-  </div>
-  <div class="grid-container hide hidden">
-    <div class="grid-item">
-      <div class="label"> Status</div>
-      <div id="load_toggle" class="toggle off"><div class="tab"></div></div>
-    </div>
-    <div class="grid-item">
-      <div class="label"> Power</div>
-      <div class="value"><span id="load_power"></span><span class="unit">W</span></div>
-    </div>
-  </div>
+  <section id="live" class="hide hidden" role="tabpanel" aria-labelledby="live-tab" tabindex="0">
+    <section class="reading-card solar-card">
+      <header class="card-header">
+        <span class="card-icon"><img src="images/solar-panel.png" alt=""></span>
+        <h2>Solar input</h2>
+      </header>
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Power</div>
+          <div class="value"><span id="pv_power">—</span><span class="unit">W</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Generation today</div>
+          <div class="value"><span id="power_generation_today">—</span><span class="unit">kWh</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Voltage</div>
+          <div class="value"><span id="pv_voltage">—</span><span class="unit">V</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Current</div>
+          <div class="value"><span id="pv_current">—</span><span class="unit">A</span></div>
+        </div>
+      </div>
+    </section>
 
-  <div class="section"> </div>
-  <div class="toolbar">
-    <button id="search" class="search">Search device</button>
-    <button id="disconnect" class="hide hidden">Disconnect</button>
-  </div>
-  
-</div>
+    <section class="reading-card">
+      <header class="card-header">
+        <span class="card-icon"><img src="images/battery.png" alt=""></span>
+        <h2>Battery</h2>
+      </header>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Voltage</div>
+          <div class="value"><span id="battery_voltage">—</span><span class="unit">V</span></div>
+        </div>
+
+        <div class="metric">
+          <div class="label">Charge</div>
+          <div class="value"><span id="battery_percentage">—</span><span class="unit">%</span>
+            <div class="battery">
+              <div class="charge" id="soc" style="width: 0%"></div>
+              <div class="terminal"></div>
+            </div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="label">Charging current</div>
+          <div class="value"><span id="battery_current">—</span><span class="unit">A</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Battery temperature</div>
+          <div class="value"><span id="battery_temperature">—</span><span class="unit">°C</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reading-card">
+      <header class="card-header">
+        <span class="card-icon"><img src="images/lamp.png" alt=""></span>
+        <h2>Load</h2>
+      </header>
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Status</div>
+          <div class="value switch-row">
+            <button id="load_toggle" class="toggle off unavailable" role="switch" aria-label="Load output" aria-checked="false" disabled><span class="tab"></span></button>
+            <span id="load_state">—</span>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="label">Power</div>
+          <div class="value"><span id="load_power">—</span><span class="unit">W</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Voltage</div>
+          <div class="value"><span id="load_voltage">—</span><span class="unit">V</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Current</div>
+          <div class="value"><span id="load_current">—</span><span class="unit">A</span></div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section id="energy" class="hide hidden" role="tabpanel" aria-labelledby="energy-tab" tabindex="0" hidden>
+    <section class="reading-card">
+      <h2 class="card-heading">Energy summary</h2>
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Consumption today</div>
+          <div class="value"><span id="power_consumption_today">—</span><span class="unit">kWh</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Peak charge power today</div>
+          <div class="value"><span id="max_charging_power_today">—</span><span class="unit">W</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Peak discharge power today</div>
+          <div class="value"><span id="max_discharging_power_today">—</span><span class="unit">W</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Charged today</div>
+          <div class="value"><span id="charging_amp_hours_today">—</span><span class="unit">Ah</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Discharged today</div>
+          <div class="value"><span id="discharging_amp_hours_today">—</span><span class="unit">Ah</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Lifetime generation</div>
+          <div class="value"><span id="power_generation_total">—</span><span class="unit">kWh</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="reading-card">
+      <h2 class="card-heading">Daily history</h2>
+      <p id="history_status" role="status">Reading history…</p>
+      <table id="history_table" aria-label="Daily energy history" hidden>
+        <thead><tr><th scope="col">Day</th><th scope="col">Energy (kWh)</th><th scope="col">Charge (Ah)</th><th scope="col">Peak (W)</th></tr></thead>
+        <tbody id="history_rows"></tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="controller" class="hide hidden" role="tabpanel" aria-labelledby="controller-tab" tabindex="0" hidden>
+    <section class="reading-card">
+      <h2 class="card-heading">Controller</h2>
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Model</div>
+          <div class="value"><span id="model">—</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Device address</div>
+          <div class="value"><span id="device_id">—</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Battery type</div>
+          <div class="value"><span id="battery_type">—</span></div>
+        </div>
+        <div class="metric">
+          <div class="label">Controller temperature</div>
+          <div class="value"><span id="controller_temperature">—</span><span class="unit">°C</span></div>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
 <script src="./js/BLE.js"></script>
 <script src="./js/BtOneApp.js"></script>
+<script src="./js/RoverSimulator.js"></script>
+</body>
 </html>
