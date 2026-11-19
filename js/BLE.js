@@ -9,6 +9,7 @@ class BLEDevice {
     this.server = null;
     this.writeChar = null;
     this.notifyChar = null;
+    this.handleNotification = this.read.bind(this);
     this.isBluefy = navigator.userAgent.indexOf('Bluefy') > 0;
 
     if (this.constructor == BLEDevice) {
@@ -20,7 +21,7 @@ class BLEDevice {
     try {
       if (!this.isBluefy && typeof navigator.bluetooth.getDevices !== "undefined") {
         const devices = await navigator.bluetooth.getDevices()
-        if (devices.length > 0) this.device = self.devices.find(device => device.name && device.name.startsWith(this.namePrefix));
+        if (devices.length > 0) this.device = devices.find(device => device.name && device.name.startsWith(this.namePrefix));
       }
 
       if (!this.device) {
@@ -38,7 +39,7 @@ class BLEDevice {
       this.writeChar = await writeService.getCharacteristic(this.writeCharUuid);
       this.notifyChar = await notifyService.getCharacteristic(this.notifyCharUuid);
       await this.notifyChar.startNotifications()
-      await this.notifyChar.addEventListener('characteristicvaluechanged', this.read.bind(this))
+      this.notifyChar.addEventListener('characteristicvaluechanged', this.handleNotification);
       this.onConnect()
     } catch (e) {
       this.onError(e)
@@ -50,7 +51,8 @@ class BLEDevice {
   }
 
   async disconnect() {
-    if (this.device.gatt.connected) {
+    this.notifyChar?.removeEventListener('characteristicvaluechanged', this.handleNotification);
+    if (this.device?.gatt.connected) {
       await this.device.gatt.disconnect();
     } else {
       console.log('Bluetooth Device is already disconnected');
